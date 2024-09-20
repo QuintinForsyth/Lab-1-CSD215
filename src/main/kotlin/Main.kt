@@ -8,7 +8,8 @@ import java.io.InputStreamReader
 import kotlin.system.exitProcess
 
 data class Task(val name: String, val isComplete: Boolean)
-
+// Wanna see something cool? Look into the Task List before running it and watch the 4th task which isn't a Boolean
+// turn into one when you run it, and do something, of course you will need to click on then off of it to see.
 fun main() {
     val file = File("Task List")
     var tasks: List<Task> = listOf()
@@ -47,7 +48,7 @@ fun main() {
             3 -> {
                 tasks = removeAllCompleted(tasks)
                 fileWriter(file, tasks)
-            }
+            } // these calls are autosave so the program can save and its not an issue if user closes it wrong
             4 -> {
                 killProgram(file, tasks)
             }
@@ -149,11 +150,10 @@ fun fileReader(file: File): List<Task> {
         val parts = line.split(":")
         if (parts.size == 2) {
             val name = parts[0]
-            val isComplete = parts[1].toBoolean()
+            val isComplete = parts[1].trim().toBoolean() //literal amazing function makes it allot more robust to garbage files
             Task(name, isComplete)
         } else {
-            println("Ignoring malformed line: $line")
-            null
+            null //this is used to skip lines which are broken or just the breaks in text, this also allows it to be more legible
         }
     }
 }
