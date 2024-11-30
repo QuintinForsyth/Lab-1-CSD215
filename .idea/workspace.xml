@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be690d07-ab8e-4c2b-88e5-f7a0a2759ebd" name="Changes" comment="finished lab 1 kotlin">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Task.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/MainKtTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/reflection" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/updated design.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task List" beforeDir="false" afterPath="$PROJECT_DIR$/Task List" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -158,6 +156,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="finished lab 1 kotlin" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished lab 1 kotlin" />
+    <MESSAGE value="pushing lab 4 so I can compare it to lab 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="pushing lab 4 so I can compare it to lab 1" />
   </component>
 </project>

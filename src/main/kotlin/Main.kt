@@ -16,23 +16,24 @@ fun main() {
     var tasks: List<Task>
     val introductionString = "$dashString\nWelcome to Lab-1 Kotlin TODO List App"
     tasks = readTask("Task List")
-    println(colourText("introductionString", TextColour.GREEN))
+    colourAndOutput(introductionString, TextColour.GREEN, ::println)
     val reader = BufferedReader(InputStreamReader(System.`in`))
     while (true) {
-        tasks = userInterfaceForApplication(tasks, reader)
-        saveTasks(tasks,"Task List")
+        tasks = userInterface(tasks, reader)
+        saveTasks(tasks, "Task List")
     }
 }
 
 /**
- * the user interface for the application to run loops through allowed options
+ * the userInterface is the visual representation of the programs functions, it displays
+ * all the possible options while main handles the looping of this function
  * @param tasks is a list of the task data class containing all tasks
  * @param reader is used to get the users input
  */
-fun userInterfaceForApplication(tasks: List<Task>, reader: BufferedReader) : List<Task> {
-    println(colourText("mainMenu", TextColour.GREEN))
+fun userInterface(tasks: List<Task>, reader: BufferedReader): List<Task> {
+    colourAndOutput(mainMenu, TextColour.GREEN, ::println)
 
-    var newTasks: List<Task>
+    val newTasks: List<Task>
     val response = promptForNumber(reader)
     when (response) {
         1 -> {
@@ -70,22 +71,26 @@ fun userInterfaceForApplication(tasks: List<Task>, reader: BufferedReader) : Lis
  * @param tasks is the task list which is needed to print out the tasks
  * then it prints the dashString Separator at the end
  */
-fun taskPrinter(tasks: List<Task>) {
-    if(tasks.isEmpty()){
-        println(colourText("No Current Tasks", TextColour.RED))
-    }
 
-    else{
-        println("Current Tasks:")
+
+fun taskPrinter(tasks: List<Task>) {
+    if (tasks.isEmpty()) {
+        colourAndOutput("No Current Tasks", TextColour.RED, ::println)
+    } else {
+        colourAndOutput("Current Tasks:", TextColour.YELLOW, ::println)
         tasks.forEachIndexed { index, task ->
             val displayIndex = index + 1
-            val status = if (task.isComplete) colourText("Completed",TextColour.GREEN) else colourText("Uncompleted",TextColour.RED)
+            val status = if (task.isComplete) {
+                colourText("Completed", TextColour.GREEN)
+            } else {
+                colourText("Not Completed", TextColour.RED)
+            }
             println("$displayIndex: ${task.name}: $status")
         }
         println(dashString)
     }
-
 }
+
 
 
 /**
@@ -96,26 +101,24 @@ fun taskPrinter(tasks: List<Task>) {
 
 fun promptForTask(reader: BufferedReader): String {
     while (true) {
-        print(colourText("Type Your Task (-1 to exit):",TextColour.BLUE))
+        colourAndOutput("Type Your Task (-1 to exit):", TextColour.BLUE, ::print)
         val userPromptedResponse = reader.readLine() ?: "Unknown"
 
         if (userPromptedResponse.isNotBlank()) {
             return userPromptedResponse
-
         } else {
-            println(colourText("You are trying to add nothing.", TextColour.RED))
-
+            colourAndOutput("You are trying to add nothing.", TextColour.RED, ::println)
         }
     }
 }
 /**
- * the user is prompted to input a integer value
+ * the user is prompted to input an integer value
  * @param reader is the reader used to get the user input
  * @return returns the userPromptedResponse value, will return
  */
 fun promptForNumber(reader: BufferedReader): Int? {
     while(true){
-        var response = reader.readLine()?.toIntOrNull()
+        val response = reader.readLine()?.toIntOrNull()
         return response
     }
 }
@@ -138,7 +141,8 @@ fun addTask(tasks: List<Task>, response: String): List<Task> {
  * @return tasks to give the tasks list back to the application
  */
 fun taskCompleter(reader: BufferedReader, tasks: List<Task>): List<Task> {
-    println("Select a task to mark as complete:")
+    colourAndOutput("Select a task to mark as complete:", TextColour.YELLOW, ::println)
+
     taskPrinter(tasks)  // Display tasks with 1-based index
 
     val taskIndexInput = reader.readLine()?.toIntOrNull()
@@ -156,11 +160,26 @@ fun taskCompleter(reader: BufferedReader, tasks: List<Task>): List<Task> {
 /**
  * Colours a print based on its specified colour
  * @param text The text to be coloured
- * @param color is related to an enumerator of specific Colours with their colourCode
+ * @param colour is related to an enumerator of specific Colours with their colourCode
  * @return the String passed to it to be colours
  */
 fun colourText(text: String, colour: TextColour): String {
     return "${colour.code}$text\u001B[0m"
+}
+
+/**
+ * Higher order function used to print colouredText using the colourText Function
+ * @param text is the text we want to colour and output
+ * @param colour is the colour that we want the text to be
+ * @param output is the output method we want the text to be outputted with
+ */
+fun colourAndOutput(text: String, colour: TextColour, output: (String) -> Unit) {
+    if (text.isEmpty()) {
+        output("Text was Empty nothing to print")
+        return
+    }
+    val colouredText = colourText(text, colour)
+    output(colouredText)
 }
 
 /**
@@ -170,6 +189,7 @@ enum class TextColour(val code: String) {
     GREEN("\u001B[32m"),
     RED("\u001B[31m"),
     BLUE("\u001B[34m"),
+    YELLOW("\u001B[33m"),
 }
 
 
